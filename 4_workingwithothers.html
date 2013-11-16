@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Git: travailler à plusieurs</title>
+
+</head>
+<body>
+<h1>Git: travailler à plusieurs</h1>
+
+<p>Créez un git from scratch dans un dossier <code>gitfs</code>, et ajouter du contenu et faite au moins un commit.</p>
+
+<h3>git checkout</h3>
+
+<p>Supprimez tous les fichiers dans le dossier <code>gitfs</code>, sauf le dossier <code>.git</code>. Puis faites:</p>
+
+<pre><code>gitfs$ git status
+gitfs$ git checkout
+gitfs$ git status
+</code></pre>
+
+<p>Pour transférer votre code à quelqu'un d'autres, vous n'avez besoin que de lui envoyer le dossier <code>.git</code>. En fait, c'est très simple de faire ça, il suffit de faire :</p>
+
+<pre><code>gitfs$ cd ..
+$ git clone --bare gitfs gitfs.git
+</code></pre>
+
+<p>Vous avez créé un repétoire git qui clone un repétoire git local. Et l'option <code>--bare</code> vous permet de dire qu'il n'aura pas de fichiers de travails. L'interaction avec ce répertoire ne se fera qu'en communiquant avec d'autre répertoires. Voyons comment on peut faire ça.</p>
+
+<h3>git remote</h3>
+
+<pre><code>$ cd gitfs
+gitfs$ git remote add origin ../gitfs.git
+</code></pre>
+
+<p>On a ajouté un git remote à <code>gitfs</code>, le git bare <code>gitfs.git</code> qu'on a tout juste créé. On peut maintenant communiquer avec ce répertoire, même s'il est sur le même disque.</p>
+
+<h3>git push</h3>
+
+<p>Faisons une modification dans un des fichiers de <code>gitfs</code>, et committons là. On veut maintenant envoyer les modifications à <code>gitfs.git</code>.</p>
+
+<pre><code>gitfs$ git push --set-upstream origin master
+</code></pre>
+
+<p>On vient de dire qu'on veut pousser les changements de la branche master sur origin/master, et qu'on veut se rappeler de la connection entre les deux (<code>--set-upstream</code>, qui est équivalent à <code>-u</code>).</p>
+
+<p>Si maintenant on créé un nouveau répertoire à partir de <code>gitfs.git</code>:</p>
+
+<pre><code>gitfs$ cd ..
+$ git clone gitfs.git gitfs2
+$ cd gitfs2
+gitfs2$ git log
+</code></pre>
+
+<p>On voit que les changements sont arrivé jusqu'à <code>gitfs2</code> via <code>gitfs.git</code>. Est-ce qu'on peut faire l'inverse ? Faites un changement dans les fichiers de gitfs2, et committez. Ici on n'a pas besoin d'ajouter un remote, étant donné que <code>gitfs.git</code> a été défini comme remote <code>origin</code> par défaut quand on a cloné. Ici on a juste besoin de faire:</p>
+
+<pre><code>gitfs2$ git push
+</code></pre>
+
+<p>et les changements sont envoyé sur <code>gitfs.git</code>.  Allons récupérer les changements dans <code>gitfs</code>.</p>
+
+<h3>git fetch</h3>
+
+<pre><code>gitfs2$ cd ../gitfs
+gitfs$ git fetch
+</code></pre>
+
+<p>git fetch récupère les changements présent sur le remote <code>gitfs.git</code>, mais ne les appliques pas. Ils sont mis dans les "remote branch". Il suffit maintenant de merger:</p>
+
+<pre><code>gitfs$ git merge origin/master
+gitfs$ git log
+</code></pre>
+
+<p>Les changements ont bien été récupérés.</p>
+
+<p>Un raccourci est <code>git pull</code> qui fait un <code>git fetch</code> et un <code>git merge</code> sur la branche courante. Souvent, c'est mieux de décomposer les deux étapes, surtout au début, pour bien comprendre ce qui se passe. <code>git pull</code> est un peu trop magique.</p>
+
+<p>Ici, les répertoires git étaient sur le même disque, mais c'est exactement la même chose quand les répertoires communiquent par internet. On peut aussi envisager que <code>gitfs.git</code> se trouve dans le dossier Dropbox, partagé entre les membres d'un même projet.</p>
+
+<h3>GitHub</h3>
+
+<p>Mettez vous en paire avec votre voisin. L'un de vous deux créé un répertoire sur <code>github.com</code>, et vous y donne les droit d'écriture.
+Ensuite, sans communiquer, vous devez écrire ensemble un poème en 4 strophes de 4 vers chacun. L'un de vous se charge de la première strophe, et l'autre dans la deuxième, dans des branches séparées.</p>
+
+<p>Ensuite, vous les merger dans master, et faites quelques ajustements pour les rendre quelque peu cohérente l'une avec l'autre.</p>
+
+<p>Pour la troisième strophe, écrivez un vers sur deux.</p>
+
+<p>Pour la quatrième strophe, l'un écrit le début des vers, l'autre leur fin.</p>
+
+<p>Bonne écriture.</p>
+</body>
+</html>

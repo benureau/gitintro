@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Git: de branches en branches</title>
+
+</head>
+<body>
+<h1>Git: de branches en branches</h1>
+
+<p>Clonez le répertoire github suivant:</p>
+
+<pre><code>$ git clone git@github.com:humm/gitbranches.git
+$ cd gitbranches
+</code></pre>
+
+<h3>git branch</h3>
+
+<p>Ce répertoire possède plusieurs branches. Pour les branches locales, on utilise:</p>
+
+<pre><code>gitbranches$ git branch
+</code></pre>
+
+<p>Pour afficher toute les branches.</p>
+
+<pre><code>gitbranches$ git branch -a
+</code></pre>
+
+<p>L'étoile dénote la branch courante. Les autres sont des branches <code>remotes</code>. On a la branche <code>origin/master</code>, et la branch <code>origin/titre</code>.</p>
+
+<h3>git checkout</h3>
+
+<p>Si on fait:</p>
+
+<pre><code>gitbranches$ git checkout titre
+</code></pre>
+
+<p>git créé la branche locale <code>titre</code> qui correspond à la branche <code>origin/titre</code>.</p>
+
+<pre><code>gitbranches$ git branch
+</code></pre>
+
+<p>retourne maintenant deux branches, et indique que la branche courante est <code>titre</code>. Les fichiers de travail changent en fonction des branches. En faisant un utilisant <code>git checkout</code> et en ouvrant index.html dans un navigateur, examinez les différences entre les deux branches.</p>
+
+<h3>git diff</h3>
+
+<p>On peut aussi utiliser <code>git diff</code>. Si on se trouve dans <code>titre</code>, et qu'on fait</p>
+
+<pre><code>gitbranches$ git diff master
+</code></pre>
+
+<p>Git nous montrera les différences.</p>
+
+<h3>git log</h3>
+
+<p>On peut examiner les branches facilement avec git:</p>
+
+<pre><code>gitbranches$ git log --graph --decorate --all
+</code></pre>
+
+<h3>git merge</h3>
+
+<p>Une fois que vous avez compris <code>git merge</code>, mon travail est fini. Ici, la branche titre est clairement plus avancée que <code>master</code>. On a envie de mettre à jour master avec les changement de <code>titre</code>.</p>
+
+<pre><code>gitbranches$ git checkout master
+gitbranches$ git merge titre
+</code></pre>
+
+<p>Le merge est "fast-forward" et automatique. <code>index.html</code> contient maintenant le bon titre, et on est toujours dans <code>master</code>. <code>master</code> a été mis à jour. C'est le cas le plus simple de <code>git merge</code>. Examinez le graph des branches avec :</p>
+
+<pre><code>gitbranches$ git log --graph --decorate --all
+</code></pre>
+
+<h3>git branch 2</h3>
+
+<p>Créons des nouvelles branches. Ces couleurs font mal aux yeux, non ? Créons une branche <code>couleur</code>.</p>
+
+<pre><code>gitbranches$ git branch couleur
+</code></pre>
+
+<p>Notons que la branche courante n'a pas changé. On est toujours dans <code>master</code>.
+Le texte de la page pourrait être mis mieux en forme. Créons une autre branche pour ça.</p>
+
+<pre><code>gitbranches$ git checkout -b texte
+</code></pre>
+
+<p>On utilise <code>checkout -b</code> ici pour dire qu'on veut créer la branche et y aller en une seule commande. Pour un meilleur style de texte, changer la ligne</p>
+
+<pre><code>&lt;p style="background-color:green;"&gt;
+</code></pre>
+
+<p>par</p>
+
+<pre><code>&lt;p style="background-color:green;width:400px;text-align:justify;"&gt;
+</code></pre>
+
+<p>Vérifiez que ça marche, et commitez les changements.</p>
+
+<p>Switchons sur la branch <code>couleur</code> maintenant, et supprimons tout les <code>background-color:yellow;</code> et autres du code. La page est maintenant blanche.</p>
+
+<p>On revient dans master</p>
+
+<pre><code>gitbranches$ git checkout master
+</code></pre>
+
+<h3>git merge 2</h3>
+
+<p>On veut maintenant merger les changements de <code>texte</code> et <code>couleur</code> dans master.</p>
+
+<pre><code>gitbranches$ git merge couleur
+</code></pre>
+
+<p>Ok. Puis:</p>
+
+<pre><code>gitbranches$ git merge texte
+</code></pre>
+
+<p>Et là, merge conflict. <code>couleur</code> et <code>texte</code> on modifié la même ligne, et git ne sait pas comment fusionner les deux versions. Si on regarde index.html, il y a un passage :</p>
+
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;p style=""&gt;
+=======
+&lt;p style="background-color:green;width:400px;text-align:justify;"&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; texte
+</code></pre>
+
+<p>On nous montre les deux versions disponibles, et on nous demande d'en choisir une. Les marques <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> délimitent les conflit. Le reste du fichier ne pose pas de problème. Il faut remplacer tout ça par :</p>
+
+<pre><code>&lt;p style="width:400px;text-align:justify;"&gt;
+</code></pre>
+
+<p>Puis, pour dire à git qu'on a résolu les conflits, on fait un <code>git add index.html</code>, et on committe <code>git commit</code>. Le message de merge est autogénéré, mais on peut toujours le changer et ajouter des détails.</p>
+
+<p>Si on fait un :</p>
+
+<pre><code>gitbranches$ git log --graph --decorate --all
+</code></pre>
+
+<p>on voit maintenant que les branches <code>couleur</code> et <code>texte</code>, qui avait divergé, on été fusionnées dans <code>master</code>.</p>
+
+<p>Vous savez maintenant merger et résoudre des conflits. Un talent rare.</p>
+</body>
+</html>
