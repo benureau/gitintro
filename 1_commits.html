@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Git: les premiers commits</title>
+
+</head>
+<body>
+<h1>Git: les premiers commits</h1>
+
+<h3>La ligne de commande</h3>
+
+<p>Pour interagir avec les dossiers et fichier en ligne de commande, les commandes suivantes sont disponibles :</p>
+
+<ul>
+<li><code>cd nomdurépertoire</code> pour aller dans un répertoire</li>
+<li><code>cd ..</code> pour aller dans le répertoire supérieur</li>
+<li><code>ls</code> pour afficher les dossiers et fichiers courants.</li>
+<li><code>tree</code> (si installé) pour afficher l'ensemble de la hierarchie du répetoire courant.</li>
+<li><code>mkdir nomdurépertoire</code> pour créer un répertoire.</li>
+<li><code>rm nomdufichier</code> pour supprimer un fichier.</li>
+<li><code>mv nomduficher nouveaunom</code> pour déplacer un ficher.</li>
+<li><code>gedit nomdufichier</code>, ou tout autre éditeur pour éditer un fichier.</li>
+</ul>
+
+
+<p>Si vous préférez, vous pouvez aussi utiliser l'interface du navigateur de fichier et un éditeur de texte graphique pour faire exactement les même choses.</p>
+
+<h3>git configuration</h3>
+
+<p>Quelques petites modifs à la configuration par défaut:</p>
+
+<p>Tout d'abord, vous:</p>
+
+<pre><code>$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+</code></pre>
+
+<p>Ça permettra d'attribuer vos commits correctement. A chaque fois qu'un commit est fait dans git, le nom et l'adresse de l'auteur est inclu, et cryptographiquement signé. Ça permet d'être sûr que l'auteur n'est pas changé à posteriori.</p>
+
+<p>Et puis la couleur:</p>
+
+<pre><code>$ git config --global color.ui true
+</code></pre>
+
+<p>Si vous voulez, vous pouvez précisez votre éditeur préféré:</p>
+
+<pre><code>$ git config --global core.editor emacs
+</code></pre>
+
+<h3>git init</h3>
+
+<p>Créez un dossier <code>myfirstgit</code> dans votre répertoire:</p>
+
+<pre><code>$ mkdir myfirstgit
+</code></pre>
+
+<p>Puis placez vous dedans:</p>
+
+<pre><code>$ cd myfirstgit
+</code></pre>
+
+<p>Pour créer un répertoire git dans le dossier courant:</p>
+
+<pre><code>myfirstgit$ git init
+</code></pre>
+
+<p>Vous pouvez maintenant utiliser les commandes git tant que vous êtes dans ce dossier, ou dans un de ses sous-dossiers.</p>
+
+<h3>git status</h3>
+
+<pre><code>myfirstgit$ git status
+</code></pre>
+
+<p>Cette commande n'a aucun effet sur les fichiers, elle vous permet de voir ou en sont vos fichier par rapport à git. N'hésitez pas à en abuser pour vous rendre compte de l'effet de vos commandes.</p>
+
+<p>Pour l'instant, cette commande devrait vous renvoyer:</p>
+
+<pre><code>myfirstgit$ git status
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)
+</code></pre>
+
+<p>Créer un fichier:</p>
+
+<pre><code>$ gedit fichier.txt
+</code></pre>
+
+<p>Ajoutez du contenu à votre convenance. Par exemple :</p>
+
+<pre><code>C'est un trou de verdure où chante une rivière,
+Accrochant follement aux herbes des haillons
+D'argent ; où le soleil, de la montagne fière,
+Luit : c'est un petit val qui mousse de rayons.
+
+Un soldat jeune, bouche ouverte, tête nue,
+Et la nuque baignant dans le frais cresson bleu,
+Dort ; il est étendu dans l'herbe, sous la nue,
+Pâle dans son lit vert où la lumière pleut.
+
+Les pieds dans les glaïeuls, il dort. Souriant comme
+Sourirait un enfant malade, il fait un somme :
+Nature, berce-le chaudement : il a froid.
+</code></pre>
+
+<p>Refaite un <code>git status</code>. Vous obtenez:</p>
+
+<pre><code>myfirstgit$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#   fichier.txt
+nothing added to commit but untracked files present (use "git add" to track)
+</code></pre>
+
+<p>git nous précise qu'il a bien vu qu'un fichier nouveau avait été ajouté, mais qu'il n'a pas encore été ajouté.</p>
+
+<h3>git add</h3>
+
+<pre><code>myfirstgit$ git add fichier.txt
+
+myfirstgit$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached &lt;file&gt;..." to unstage)
+#
+#   new file:   fichier.txt
+#
+</code></pre>
+
+<p><code>git add</code> permet de signifier à git que le fichier en question doit faire partie du prochain commit. Il faut maintenant faire le commit.</p>
+
+<h3>git commit</h3>
+
+<pre><code>myfirstgit$ git commit -m "my first commit"
+[master (root-commit) 8992950] my first commit
+ 1 file changed, 13 insertions(+)
+ create mode 100644 fichier.txt
+
+myfirstgit$ git status    
+# On branch master
+nothing to commit, working directory clean
+</code></pre>
+
+<p>Le commit a bien été enregistré. Mais on a oublié la dernière strophe. Rééditez le fichier, et rajoutez:</p>
+
+<pre><code>Les parfums ne font pas frissonner sa narine ;
+Il dort dans le soleil, la main sur sa poitrine,
+Tranquille. Il a deux trous rouges au côté droit.
+</code></pre>
+
+<p>Cette fois, <code>git status</code> retourne:</p>
+
+<pre><code># On branch master
+# Changes not staged for commit:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#   modified:   fichier.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+<p>git est au courant que le fichier a été modifié, mais il n'est pas encore ajouté au prochain commit.</p>
+
+<ul>
+<li>Ajoutez-le,</li>
+<li>Faites un commit,</li>
+<li>Modifier à nouveau le fichier pour ajouter le titre, l'auteur et son âge lors de l'écriture (octobre 1870).</li>
+<li>Faites un commit avec le fichier modifié.</li>
+<li>Créer un fichier nouveau fichier avec un texte différent et commitez-le.</li>
+</ul>
+
+</body>
+</html>
