@@ -160,7 +160,7 @@ sup {
 
 <h3>La ligne de commande</h3>
 
-<p>Pour interagir avec les dossiers et fichier en ligne de commande, les commandes suivantes sont disponibles :</p>
+<p>Pour interagir avec les dossiers et fichiers en ligne de commande, les commandes suivantes sont disponibles :</p>
 
 <ul>
 <li><code>cd nomdurépertoire</code> pour aller dans un répertoire</li>
@@ -169,7 +169,9 @@ sup {
 <li><code>tree</code> (si installé) pour afficher l'ensemble de la hierarchie du répetoire courant.</li>
 <li><code>mkdir nomdurépertoire</code> pour créer un répertoire.</li>
 <li><code>rm nomdufichier</code> pour supprimer un fichier.</li>
-<li><code>mv nomduficher nouveaunom</code> pour déplacer un ficher.</li>
+<li><code>cp nomduficher nouveaunom</code> pour copier un ficher.</li>
+<li><code>cp -R nomdudossier nouveaunom</code> pour copier un dossier.</li>
+<li><code>mv nomduficher nouveaunom</code> pour déplacer un ficher ou un dossier.</li>
 <li><code>gedit nomdufichier</code>, ou tout autre éditeur pour éditer un fichier.</li>
 </ul>
 
@@ -302,7 +304,9 @@ myfirstgit$ git status
 nothing to commit, working directory clean
 </code></pre>
 
-<p>Le commit a bien été enregistré. Mais on a oublié la dernière strophe. Rééditez le fichier, et rajoutez:</p>
+<p>Le commit a bien été enregistré. On peut omettre le <code>-m "my first commit"</code>, et n'utiliser que <code>git commit</code>, mais dans ce cas, git lance un éditeur pour entrer le message. Ce qui est plus pratique si le message est long et fait plusieurs lignes. git refusera de committer avec un message vide.</p>
+
+<p>Mais on a oublié la dernière strophe. Rééditez le fichier, et rajoutez:</p>
 
 <pre><code>Les parfums ne font pas frissonner sa narine ;
 Il dort dans le soleil, la main sur sa poitrine,
@@ -331,5 +335,19 @@ no changes added to commit (use "git add" and/or "git commit -a")
 <li>Créer un fichier nouveau fichier avec un texte différent et commitez-le.</li>
 </ul>
 
+
+<h3>git log</h3>
+
+<p>Pour voir la list de vos commit, utilisez</p>
+
+<pre><code>myfirstgit$ git log
+</code></pre>
+
+<p>Si vous voulez quelque chose de plus compact, utilisez</p>
+
+<pre><code>myfirstgit$ git log --oneline
+</code></pre>
+
+<p>Seule la première ligne du message est visible. Quand on travaille en équipe, il faut faire en sorte que la première ligne reflète le plus précisément et le plus concisement possible les changements.</p>
 </body>
 </html>
