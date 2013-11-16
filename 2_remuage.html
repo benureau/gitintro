@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Git: Remuage de fichiers</title>
+
+</head>
+<body>
+<h1>Git: Remuage de fichiers</h1>
+
+<p>Pour cette partie, on va utiliser les fichiers disponibles dans le dossier <code>2_fichiers</code>. Copier-le dans un autre endroit, disons un dossier <code>remuage</code>, et faites un <code>git init</code> dedans.</p>
+
+<h3>git reset</h3>
+
+<p>Pour ajouter tout les fichiers d'un coup, utilisez:</p>
+
+<pre><code>remuage$ git add .
+</code></pre>
+
+<p>En faisant un git status, on se rend compte qu'on a ajouter le fichier Thumbs.db, qu'on ne veut pas commiter.</p>
+
+<p>Il suffit pour cela d'utiliser</p>
+
+<pre><code>remuage$ git reset Thumbs.db
+</code></pre>
+
+<p><code>git status</code> nous informe que le fichier n'est plus prévu dans le prochain commit.</p>
+
+<p>Commitez les 3 autres fichiers.</p>
+
+<p>Thumbsdb apparait toujours dans <code>git status</code>. On pourrait supprimer le fichier Thumbs.db, mais il risque de revenir. Du coup, on va créer un fichier spécial <code>.gitignore</code> dans le dossier. Cela nous permet de préciser à git les fichiers dont il ne doit pas s'occuper.</p>
+
+<p>Dedans, il suffit d'ajouter <code>Thumbs.db</code> sur la première ligne. On pourrait aussi ajouter tous les fichiers d'un certain type. Par exemple, les fichiers finissant en <code>.o</code> ou en <code>.pyc</code>. Il suffit de créer de nouvelles lignes dans <code>.gitignore</code> avec <code>*.o</code> et <code>*.pyc</code> respectivement. Ajoutez ces deux lignes à <code>.gitignore</code>.</p>
+
+<p>Le fichier .gitignore a caché <code>Thumbs.db</code>, mais il apparaît maintenant dans <code>git status</code>. Pour ajouter tous les nouveaux fichiers, vous pouvez utiliser</p>
+
+<pre><code>git add -A
+</code></pre>
+
+<p>à la place de</p>
+
+<pre><code>git add .
+</code></pre>
+
+<p>Committez.</p>
+
+<h3>git mv</h3>
+
+<p>Le fichier haikku.py est mal orthographié. Corrigez les en utilisant la commande:</p>
+
+<pre><code>remuage$ git mv haikku.py haiku.py
+</code></pre>
+
+<p>Elle déplace le fichier et l'inscrit au prochain commit.</p>
+
+<p>Commitez.</p>
+
+<h3>git diff</h3>
+
+<p>Haikku est aussi mal orthographié dans le fichier <code>readme.txt</code>. Corrigez la faute. Pour voir les changements que vous avez fait, vous pouvez utiliser:</p>
+
+<pre><code>remuage$ git diff
+</code></pre>
+
+<h3>git rm</h3>
+
+<p>Ce fichier readme.txt n'est pas très utile. On veut le supprimer. Il suffit d'utiliser:</p>
+
+<pre><code>remuage$ git rm readme.txt
+</code></pre>
+
+<p>Mais ça genère une erreur:</p>
+
+<pre><code>error: 'readme.txt' has local modifications
+(use --cached to keep the file, or -f to force removal)
+</code></pre>
+
+<p>git refuse de supprimer le fichier parce qu'il a des modifications qui n'ont pas encore été commitée. Si on le supprime maintenant, les modifications sont perdues. Si on le commite et qu'on le supprime, les modifications sont sauvegardées dans git, et du coup, on peut les retrouver plus tard.</p>
+
+<p>Il faut choisir entre:</p>
+
+<pre><code>remuage$ git rm -f readme.txt
+</code></pre>
+
+<p>qui supprime le fichier quelque soit les modifications, ou</p>
+
+<pre><code>remuage$ git rm --cached readme.txt
+</code></pre>
+
+<p>qui enlève readme.txt du prochain commit, sans toucher au fichier. Le fichier est alors considéré comme "untracked", ou committer le fichier, et le supprimer après. Choississez ce qui vous tente.</p>
+
+<p>Committez.</p>
+
+<h3>one bug</h3>
+
+<p>Les deux fichiers python peuvent être executé avec les commandes:</p>
+
+<pre><code>remuage$ python antigravity.py
+remuage$ python haiku.py
+</code></pre>
+
+<p>Le programme haiku a un bug. Pour le corriger, il faut changer la première ligne par :</p>
+
+<pre><code># -*- coding: utf-8 -*-
+</code></pre>
+
+<p>Faite le changement, vérifiez que ça marche. Committez.</p>
+
+<h3>git stash ?</h3>
+</body>
+</html>
